@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Flask Tutorial</title>
+    <style>
+    button{
+        background: red;
+        border:none;
+        padding: 10px 40px;
+        font-size: 20px;
+        color:white;
+        margin-top:20px ;
+    }
+    textarea{
+        padding: 20px;
+    height: 100px;
+    resize: none;
+    width: 100%;
+    }
+    #response{
+        color: #fff;
+        display: none;
+        background: rgb(40, 110, 40);
+        padding: 20px;
+    }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <section style="margin-top: 50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="POST" action="/predict" id="predictForm">
+                        <h1>Enter your Question</h1>
+                        <div class="form-group">
+                            <textarea name="text" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-primary">Predict</button>
+                        </div>
+                        <div id="response">
+                            <h1>response</h1>
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+   
+<script>
+$(document).ready(function(){
+    $( "#predictForm" ).submit(function( event ) {
+        event.preventDefault();
+        $.ajax({
+            type:"POST",
+            url:$( "#predictForm" ).attr('action'),
+            data:$( "#predictForm" ).serialize(),
+            beforeSend:function(){
+                $( "#predictForm" ).find('button').html('<i class="fa-solid fa-spinner fa-spin"></i> Please wait')
+                $("#response").hide();
+            },
+            success:function(response){
+                console.log(response)
+                $( "#predictForm" ).find('button').html('Predict')
+                if(response.success){
+                    $("#response").html('<p>Input Question:'+response.data['Question']+'</p>'+
+                    '<p>English Similarity:'+response.data['English Similarity']+'</p>'+
+                    '<p>Translated Question:'+response.data['translated_query']+'</p>'+
+                    '<p>German Similarity:'+response.data['German Similarity']+'</p>'
+                    )
+                    $("#response").show();
+                }
+            }
+        })
+        });
+});
+</script>
+</body>
+</html>
