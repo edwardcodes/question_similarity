@@ -4,6 +4,7 @@ import torch
 class GeneratedQuestionSimiilarity(object):
 
     def __init__(self, question,corpus):
+        #device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = SentenceTransformer('./models/sentence-transformers_all-MiniLM-L6-v2/')
         #self.model = SentenceTransformer('all-MiniLM-L6-v2',cache_folder='./models/')
         self.question = question

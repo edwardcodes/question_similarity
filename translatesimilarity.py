@@ -4,6 +4,7 @@ import torch
 class TranslatedQnSimiilarity(object):
 
     def __init__(self, query,corpus):
+        #device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = SentenceTransformer('./models/sentence-transformers_distiluse-base-multilingual-cased/')
         #self.model = SentenceTransformer('all-MiniLM-L6-v2',cache_folder='./models/')
         self.translated_query = query

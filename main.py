@@ -1,6 +1,3 @@
-from ast import Str
-from crypt import methods
-
 #from requests import request
 from database import MongoDB
 from gen_ques_similarity import GeneratedQuestionSimiilarity
