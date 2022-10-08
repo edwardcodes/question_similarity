@@ -5,4 +5,4 @@ __pycache__
 models
 
 # mongo db with password
-database.py
+./database.py
