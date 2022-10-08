@@ -3,3 +3,6 @@ __pycache__
 
 # Models Excluded
 models
+
+# mongo db with password
+database.py
